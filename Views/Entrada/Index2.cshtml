@@ -1,0 +1,83 @@
+﻿@model List<Prueba10.Models.Entrada>
+@{
+    ViewBag.Title = "Entrada";
+    Layout = "~/Views/Shared/_Layout2.cshtml";
+
+    
+}
+<br />
+<h4>Lista de Horarios</h4>
+
+<a class="btn btn-danger" href="~/Empleado/Index"><span class="glyphicon glyphicon-backward"> Regresar</span></a>
+
+<br />
+<br />
+<table id="Tabla_Marcacion" class="table table-bordered">
+    <thead style="background-color:black; color:white">
+        <tr>
+            <th>Codigo</th>
+            <th>Fecha</th>
+            <th>Hora</th>
+            <th>Trabajador</th>
+            <th>Tipo de Marcacion</th>
+            <th style="text-align:center">Mantenimiento</th>
+        </tr>
+
+    </thead>
+    <tbody style="background-color:white">
+        @foreach (var f in Model)
+        {
+        <tr>
+
+            <td>@f.id_ent</td>
+
+            <td>@f.dia_ent.ToShortDateString()</td>
+            <td>@f.hora_ent.ToShortTimeString()</td>
+            @{
+                var empleados = new Prueba10.Models.BD().Empleado.ToList();
+            }
+            <td>
+                @foreach (var e in empleados)
+                {
+                    if (f.id_emp == e.id_emp)
+                    {
+                        @e.nom_emp
+
+                    }
+
+                }
+            </td>
+
+            @{
+                var ingresos = new Prueba10.Models.BD().Tipo.ToList();
+            }
+            <td>
+                @foreach (var e in ingresos)
+                {
+                    if (f.tipo == e.id_tipo)
+                    {
+                        @e.descripcion
+
+                    }
+
+                }
+            </td>
+
+
+
+            <td style="text-align:center">
+
+
+                <button class="btn btn-danger" type="button" id="btn_eli" name="btn_eli" onclick="location.href = '../Entrada/Eliminar?id=@f.id_ent'"><span class="glyphicon glyphicon-trash">Eliminar</span></button>
+
+            </td>
+        </tr>
+        }
+
+    </tbody>
+</table>
+<script>
+    $(document).ready(function () {
+        $('#Tabla_Marcacion').DataTable();
+    });
+</script>

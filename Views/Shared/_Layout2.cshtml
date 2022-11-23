@@ -1,0 +1,43 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <script src="~/Scripts/bootstrap.js"></script>
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+    <link href="~/Content/jquery.dataTables.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery.dataTables.js"></script>
+
+</head>
+<body style="background: -webkit-linear-gradient(90deg, ligthgray 25%, lightsteelblue 75%)">
+
+    <header style="background-color:black; color:white; text-align:center">
+        <br /><h3> Registro de Ingresos </h3>
+
+    </header>
+    <nav class="row" style="background-color:gray; height:40px; margin: 1px 1px 1px 1px">
+        <div class="btn-group">
+
+            <button class="btn btn-primary" onclick="location.href ='../Empleado/Index'">Empleado</button>
+            <button class="btn btn-primary" onclick="location.href ='../Entrada/Index1">Marcacion</button>
+            <form action="~/WebForm1.aspx" method="post">
+
+                <button class="btn btn-primary">Reporte</button>
+            </form>
+        </div>
+
+    </nav>
+    <main class="row" style="margin: 2% 2% 2% 2%; background-color:beige; width:96%">
+        <div class="container">
+            @RenderBody()
+        </div>
+
+    </main>
+    <footer style="background-color:black; color:white; text-align:center">
+        <br /> <small>Todos los derechos a Grupo Zuñiga S.A.C.</small>
+    </footer>
+</body>
+
+    

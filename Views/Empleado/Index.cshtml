@@ -1,0 +1,124 @@
+﻿@model List<Prueba10.Models.Empleado>
+@{
+    ViewBag.Title = "Empleado";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<br />
+<form action="~/Login.aspx" method="post">
+        <div>
+            <asp:Button ID="BtnCerrar" runat="server" Text="Cerrar Sesion" CssClass="btn btn-dark" OnClick="BtnCerrar_Click" />
+        </div>
+    </form>
+        <h4>Gestion de Empleados</h4>
+
+        <div class="alert alert-@ViewBag.alerta"> - - <b>@ViewBag.res</b> - - </div>
+        <form action="/Empleado/Index" method="post">
+            <table>
+                <tr>
+                    <td style="padding:10px">Dni:</td>
+                    <td style="padding:10px"><input class="form-control" maxlength="8" type="text" name="dni" id="dni" required /></td>
+                </tr>
+                <tr>
+                    <td style="padding:10px">Nombre:</td>
+                    <td style="padding:10px"><input class="form-control" type="text" name="name" id="name" required /></td>
+                </tr>
+                <tr>
+                    <td style="padding:10px">Fecha de Nacimiento</td>
+                    <td style="padding:10px"><input class="form-control" type="date" name="fnac_emp" id="fnac_emp" required /></td>
+                </tr>
+                <tr>
+                    <td style="padding:10px"></td>
+                    <td style="padding:10px">
+                        <button class="btn btn-success" type="submit" name="btn1" id="btn1"><span class="glyphicon glyphicon-save">Agregar</span></button>
+                        <button class="btn btn-primary" type="reset" name="btn2" id="btn2"><span class="glyphicon glyphicon-remove">Resetear</span></button>
+                        <a class="btn btn-danger" href="~/Empleado/Index"><span class="glyphicon glyphicon-backward"> Regresar</span></a>
+                    </td>
+                </tr>
+
+            </table>
+
+        </form>
+        <br />
+        <br />
+
+        <table id="Tabla_Empleado" class="table table-bordered">
+
+            <thead style="background-color:black; color:white">
+                <tr>
+                    <th>Codigo</th>
+                    <th>Dni</th>
+                    <th>Nombre</th>
+                    <th>Fecha de Nacimiento</th>
+                    <th style="text-align:center">Mantenimiento</th>
+                    <th style="text-align:center">Horario Registrado</th>
+                </tr>
+
+            </thead>
+
+            <tbody style="background-color:white">
+                @foreach (var f in Model)
+                {
+                    <tr>
+                        <td>@f.id_emp</td>
+                        <td>@f.dni_emp</td>
+                        <td>@f.nom_emp</td>
+                        <td>@f.fnac_emp.ToShortDateString()</td>
+
+                        <td style="text-align:center">
+
+                            <button class="btn btn-warning" type="button" id="btn_act" name="btn_act" onclick="location.href='../Empleado/Editar?id=@f.id_emp'"><span class="glyphicon glyphicon-edit">Editar</span></button>
+                            <button class="btn btn-danger" type="button" id="btn_eli" name="btn_eli" onclick="location.href='../Empleado/Eliminar?id=@f.id_emp'"><span class="glyphicon glyphicon-trash">Eliminar</span></button>
+
+                        </td>
+
+                        <td style="text-align:center">
+
+                            <button class="btn btn-primary" type="button" id="btn" name="btn" onclick="location.href='../Entrada/Index2?id=@f.id_emp'"><span class="glyphicon glyphicon-edit">Entrada</span></button>
+
+
+
+                        </td>
+
+                    </tr>
+
+                }
+
+            </tbody>
+        </table>
+
+        <form action="~/GridWiewExporter.aspx" method="post">
+            <table>
+                <tr>
+                    <td style="padding:10px"></td>
+                    <td style="padding:10px">
+                        <button class="btn-block">EXPORTAR</button>
+                        <asp:Button ID="BtnExportarExcel" runat="server" Text="Excel" OnClick="BtnExportarExcel_Click" />
+                        &nbsp;
+                        <asp:Button ID="BtnExportarWord" runat="server" Text="Word" OnClick="BtnExportarWord_Click" />
+                        &nbsp;
+                        <asp:Button ID="BtnExportarPDF" runat="server" Text="PDF" OnClick="BtnExportarPDF_Click" />
+                    </td>
+                </tr>
+            </table>
+        </form>
+
+
+        <form action="~/Login.aspx" id="salir"  runat="server">
+            <table>
+                <tr>
+                    <td>
+
+
+                        <button class="btn-block">Cerrar Sesion</button>
+                        <asp:Button ID="BtnCerrar" runat="server" Text="Cerrar Sesion" OnClick="BtnCerrar_Click" />
+                    </td>
+                </tr>
+            </table>
+        </form>
+
+
+        <script>
+            $(document).ready(function () {
+                $('#Tabla_Empleado').DataTable();
+            });
+        </script>

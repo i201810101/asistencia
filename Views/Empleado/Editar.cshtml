@@ -1,0 +1,34 @@
+﻿@model  Prueba10.Models.Empleado
+@{
+    ViewBag.Title = "Editar - Empleado";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<br />
+<h4>Gestion de Empleados</h4>
+<div class="alert alert-@ViewBag.alerta"> - - <b>@ViewBag.res</b> - - </div>
+<form action="/Empleado/Editar" method="post">
+    <input type="hidden" id="id" name="id" value="@Model.id_emp"/>
+    <table>
+        <tr>
+            <td style="padding:10px">Dni:</td>
+            <td style="padding:10px"><input value="@Model.dni_emp" class="form-control" maxlength="8" type="text" name="dni" id="dni" required /></td>
+        </tr>
+        <tr>
+            <td style="padding:10px">Nombre:</td>
+            <td style="padding:10px"><input value="@Model.nom_emp" class="form-control" type="text" name="name" id="name" required /></td>
+        </tr>
+        <tr>
+            <td style="padding:10px">Fecha de Nacimiento</td>
+            <td style="padding:10px"><input value="@Model.fnac_emp.ToString("yyyy-MM-dd")" class="form-control" type="text" name="fnac_emp" id="fnac_emp" required /></td>
+        </tr>
+        <tr>
+            <td style="padding:10px"></td>
+            <td style="padding:10px">
+                <button class="btn btn-success" type="submit" name="btn1" id="btn1"><span class="glyphicon glyphicon-save">Agregar</span></button>
+                <button class="btn btn-primary" type="reset" name="btn2" id="btn2"><span class="glyphicon glyphicon-remove">Resetear</span></button>
+                <a class="btn btn-danger" href="~/Empleado/Index"><span class="glyphicon glyphicon-backward"> Regresar</span></a>
+            </td>
+        </tr>
+    </table>
+
+</form>

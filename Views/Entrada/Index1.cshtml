@@ -1,0 +1,78 @@
+﻿@model List<Prueba10.Models.Entrada>
+@{
+    ViewBag.Title = "Entrada";
+    Layout = "~/Views/Shared/_Layout2.cshtml";
+
+    var alu = new List<Prueba10.Models.Empleado>();
+    using (var cnx = new Prueba10.Models.BD())
+    {
+        alu = cnx.Empleado.ToList();
+    }
+
+    var amu = new List<Prueba10.Models.Tipo>();
+    using (var cnx = new Prueba10.Models.BD())
+    {
+        amu = cnx.Tipo.ToList();
+    }
+}
+<br />
+<div style="text-align:center">
+    <h4>Gestion de Entrada</h4>
+    <div class="alert alert-@ViewBag.alerta"> - - <b>@ViewBag.res</b> - - </div>
+    <form action="/Entrada/Index1" method="post">
+
+        <div style="text-align:center">
+            <table>
+
+                <tr>
+                    <td style="padding:10px">Dia</td>
+                    <td style="padding:10px"><input class="form-control" type="text" value="@DateTime.Now.ToShortDateString()" inert="inert" name="dia" id="dia" size="1" required /></td>
+                </tr>
+                <tr>
+                    <td style="padding:10px">Hora</td>
+                    <td style="padding:10px"><input class="form-control" type="text" value="@DateTime.Now.ToShortTimeString()" inert="inert" name="hora" id="hora" size="1" required /></td>
+                </tr>
+                <tr>
+                    <td style="padding:10px">Tipo:</td>
+                    <td>
+                        <select class="form-control" id="tipo" name="tipo" size="1" required>
+                            <option value="1">Entrada</option>
+                            @foreach (var t in amu)
+                            {
+                                <option value="@t.id_tipo">@t.descripcion</option>
+                            }
+
+
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="padding:10px">Empleado:</td>
+                    <td >
+                        <select class="form-control" id="id_emp" name="id_emp" size="1" required>
+                            
+                            @foreach (var a in alu)
+                            {
+
+                         <option value="@a.id_emp">@a.dni_emp</option>
+
+                            }
+
+
+                        </select>
+                    </td>
+                </tr>
+                
+
+                <tr>
+                    <td style="padding:10px"></td>
+                    <td style="padding:10px">
+                        <button class="btn btn-success" type="submit" name="btn10" id="btn10"><span class="glyphicon glyphicon-save">Agregar</span></button>
+                        <button class="btn btn-primary" type="reset" name="btn11" id="btn11"><span class="glyphicon glyphicon-remove">Resetear</span></button>
+                        <a class="btn btn-danger" href="~/Empleado/Index"><span class="glyphicon glyphicon-backward"> Regresar</span></a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </form>
+</div>
